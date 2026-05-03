@@ -1,0 +1,546 @@
+No.     Time           Source                Destination           Protocol Length Info
+    139 1.819457400    192.168.2.109         154.40.45.168         TCP      66     10512 → 443 [SYN] Seq=0 Win=64240 Len=0 MSS=1460 WS=256 SACK_PERM
+
+Frame 139: Packet, 66 bytes on wire (528 bits), 66 bytes captured (528 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10512, Dst Port: 443, Seq: 0, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    150 1.886373400    192.168.2.109         154.40.45.168         TCP      54     10512 → 443 [ACK] Seq=1 Ack=1 Win=132352 Len=0
+
+Frame 150: Packet, 54 bytes on wire (432 bits), 54 bytes captured (432 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10512, Dst Port: 443, Seq: 1, Ack: 1, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    159 1.948848600    192.168.2.109         154.40.45.168         TLSv1.3  306    Client Hello (SNI=tkzmov.cjaw.uno)
+
+Frame 159: Packet, 306 bytes on wire (2448 bits), 306 bytes captured (2448 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10512, Dst Port: 443, Seq: 1, Ack: 1, Len: 252
+Transport Layer Security
+
+No.     Time           Source                Destination           Protocol Length Info
+    167 2.017621900    192.168.2.109         154.40.45.168         TCP      54     10512 → 443 [ACK] Seq=253 Ack=2389 Win=132352 Len=0
+
+Frame 167: Packet, 54 bytes on wire (432 bits), 54 bytes captured (432 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10512, Dst Port: 443, Seq: 253, Ack: 2389, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    168 2.021436700    192.168.2.109         154.40.45.168         TLSv1.3  118    Change Cipher Spec, Application Data
+
+Frame 168: Packet, 118 bytes on wire (944 bits), 118 bytes captured (944 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10512, Dst Port: 443, Seq: 253, Ack: 2389, Len: 64
+Transport Layer Security
+
+No.     Time           Source                Destination           Protocol Length Info
+    169 2.021631000    192.168.2.109         154.40.45.168         TLSv1.3  295    Application Data
+
+Frame 169: Packet, 295 bytes on wire (2360 bits), 295 bytes captured (2360 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10512, Dst Port: 443, Seq: 317, Ack: 2389, Len: 241
+Transport Layer Security
+
+No.     Time           Source                Destination           Protocol Length Info
+    186 2.088778900    192.168.2.109         154.40.45.168         TCP      54     10512 → 443 [ACK] Seq=558 Ack=2931 Win=131840 Len=0
+
+Frame 186: Packet, 54 bytes on wire (432 bits), 54 bytes captured (432 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10512, Dst Port: 443, Seq: 558, Ack: 2931, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    188 2.112888100    192.168.2.109         154.40.45.168         TCP      54     10512 → 443 [FIN, ACK] Seq=558 Ack=3833 Win=132352 Len=0
+
+Frame 188: Packet, 54 bytes on wire (432 bits), 54 bytes captured (432 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10512, Dst Port: 443, Seq: 558, Ack: 3833, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    189 2.140104900    192.168.2.109         154.40.45.168         TCP      66     10513 → 443 [SYN] Seq=0 Win=64240 Len=0 MSS=1460 WS=256 SACK_PERM
+
+Frame 189: Packet, 66 bytes on wire (528 bits), 66 bytes captured (528 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10513, Dst Port: 443, Seq: 0, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    190 2.140288200    192.168.2.109         154.40.45.168         TCP      66     10514 → 443 [SYN] Seq=0 Win=64240 Len=0 MSS=1460 WS=256 SACK_PERM
+
+Frame 190: Packet, 66 bytes on wire (528 bits), 66 bytes captured (528 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10514, Dst Port: 443, Seq: 0, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    191 2.140421400    192.168.2.109         154.40.45.168         TCP      66     10515 → 443 [SYN] Seq=0 Win=64240 Len=0 MSS=1460 WS=256 SACK_PERM
+
+Frame 191: Packet, 66 bytes on wire (528 bits), 66 bytes captured (528 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10515, Dst Port: 443, Seq: 0, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    192 2.140543300    192.168.2.109         154.40.45.168         TCP      66     10516 → 443 [SYN] Seq=0 Win=64240 Len=0 MSS=1460 WS=256 SACK_PERM
+
+Frame 192: Packet, 66 bytes on wire (528 bits), 66 bytes captured (528 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10516, Dst Port: 443, Seq: 0, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    200 2.179599900    192.168.2.109         154.40.45.168         TCP      54     10512 → 443 [ACK] Seq=559 Ack=3834 Win=132352 Len=0
+
+Frame 200: Packet, 54 bytes on wire (432 bits), 54 bytes captured (432 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10512, Dst Port: 443, Seq: 559, Ack: 3834, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    202 2.205866500    192.168.2.109         154.40.45.168         TCP      54     10515 → 443 [ACK] Seq=1 Ack=1 Win=132352 Len=0
+
+Frame 202: Packet, 54 bytes on wire (432 bits), 54 bytes captured (432 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10515, Dst Port: 443, Seq: 1, Ack: 1, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    204 2.206401000    192.168.2.109         154.40.45.168         TCP      54     10514 → 443 [ACK] Seq=1 Ack=1 Win=132352 Len=0
+
+Frame 204: Packet, 54 bytes on wire (432 bits), 54 bytes captured (432 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10514, Dst Port: 443, Seq: 1, Ack: 1, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    206 2.206651200    192.168.2.109         154.40.45.168         TCP      54     10516 → 443 [ACK] Seq=1 Ack=1 Win=132352 Len=0
+
+Frame 206: Packet, 54 bytes on wire (432 bits), 54 bytes captured (432 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10516, Dst Port: 443, Seq: 1, Ack: 1, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    207 2.208768000    192.168.2.109         154.40.45.168         TLSv1.2  306    Client Hello (SNI=tkzmov.cjaw.uno)
+
+Frame 207: Packet, 306 bytes on wire (2448 bits), 306 bytes captured (2448 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10515, Dst Port: 443, Seq: 1, Ack: 1, Len: 252
+Transport Layer Security
+
+No.     Time           Source                Destination           Protocol Length Info
+    208 2.209738700    192.168.2.109         154.40.45.168         TLSv1.3  306    Client Hello (SNI=tkzmov.cjaw.uno)
+
+Frame 208: Packet, 306 bytes on wire (2448 bits), 306 bytes captured (2448 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10514, Dst Port: 443, Seq: 1, Ack: 1, Len: 252
+Transport Layer Security
+
+No.     Time           Source                Destination           Protocol Length Info
+    209 2.210738900    192.168.2.109         154.40.45.168         TLSv1.2  306    Client Hello (SNI=tkzmov.cjaw.uno)
+
+Frame 209: Packet, 306 bytes on wire (2448 bits), 306 bytes captured (2448 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10516, Dst Port: 443, Seq: 1, Ack: 1, Len: 252
+Transport Layer Security
+
+No.     Time           Source                Destination           Protocol Length Info
+    211 2.211985000    192.168.2.109         154.40.45.168         TCP      54     10513 → 443 [ACK] Seq=1 Ack=1 Win=132352 Len=0
+
+Frame 211: Packet, 54 bytes on wire (432 bits), 54 bytes captured (432 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10513, Dst Port: 443, Seq: 1, Ack: 1, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    212 2.214731000    192.168.2.109         154.40.45.168         TLSv1.3  306    Client Hello (SNI=tkzmov.cjaw.uno)
+
+Frame 212: Packet, 306 bytes on wire (2448 bits), 306 bytes captured (2448 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10513, Dst Port: 443, Seq: 1, Ack: 1, Len: 252
+Transport Layer Security
+
+No.     Time           Source                Destination           Protocol Length Info
+    214 2.275512600    192.168.2.109         154.40.45.168         TCP      66     [TCP Dup ACK 202#1] 10515 → 443 [ACK] Seq=253 Ack=1 Win=132352 Len=0 SLE=1401 SRE=2389
+
+Frame 214: Packet, 66 bytes on wire (528 bits), 66 bytes captured (528 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10515, Dst Port: 443, Seq: 253, Ack: 1, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    217 2.277016900    192.168.2.109         154.40.45.168         TCP      66     [TCP Dup ACK 204#1] 10514 → 443 [ACK] Seq=253 Ack=1 Win=132352 Len=0 SLE=1401 SRE=2389
+
+Frame 217: Packet, 66 bytes on wire (528 bits), 66 bytes captured (528 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10514, Dst Port: 443, Seq: 253, Ack: 1, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    220 2.277337000    192.168.2.109         154.40.45.168         TCP      54     10514 → 443 [ACK] Seq=253 Ack=2389 Win=132352 Len=0
+
+Frame 220: Packet, 54 bytes on wire (432 bits), 54 bytes captured (432 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10514, Dst Port: 443, Seq: 253, Ack: 2389, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    222 2.277753100    192.168.2.109         154.40.45.168         TCP      66     [TCP Dup ACK 206#1] 10516 → 443 [ACK] Seq=253 Ack=1 Win=132352 Len=0 SLE=1401 SRE=2389
+
+Frame 222: Packet, 66 bytes on wire (528 bits), 66 bytes captured (528 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10516, Dst Port: 443, Seq: 253, Ack: 1, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    223 2.284828600    192.168.2.109         154.40.45.168         TLSv1.3  118    Change Cipher Spec, Application Data
+
+Frame 223: Packet, 118 bytes on wire (944 bits), 118 bytes captured (944 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10514, Dst Port: 443, Seq: 253, Ack: 2389, Len: 64
+Transport Layer Security
+
+No.     Time           Source                Destination           Protocol Length Info
+    227 2.289309800    192.168.2.109         154.40.45.168         TCP      54     10513 → 443 [ACK] Seq=253 Ack=2389 Win=132352 Len=0
+
+Frame 227: Packet, 54 bytes on wire (432 bits), 54 bytes captured (432 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10513, Dst Port: 443, Seq: 253, Ack: 2389, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    228 2.291367100    192.168.2.109         154.40.45.168         TLSv1.3  307    Application Data
+
+Frame 228: Packet, 307 bytes on wire (2456 bits), 307 bytes captured (2456 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10514, Dst Port: 443, Seq: 317, Ack: 2389, Len: 253
+Transport Layer Security
+
+No.     Time           Source                Destination           Protocol Length Info
+    229 2.297263800    192.168.2.109         154.40.45.168         TLSv1.3  118    Change Cipher Spec, Application Data
+
+Frame 229: Packet, 118 bytes on wire (944 bits), 118 bytes captured (944 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10513, Dst Port: 443, Seq: 253, Ack: 2389, Len: 64
+Transport Layer Security
+
+No.     Time           Source                Destination           Protocol Length Info
+    230 2.298273900    192.168.2.109         154.40.45.168         TLSv1.3  309    Application Data
+
+Frame 230: Packet, 309 bytes on wire (2472 bits), 309 bytes captured (2472 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10513, Dst Port: 443, Seq: 317, Ack: 2389, Len: 255
+Transport Layer Security
+
+No.     Time           Source                Destination           Protocol Length Info
+    233 2.351541700    192.168.2.109         154.40.45.168         TCP      54     10514 → 443 [ACK] Seq=570 Ack=2931 Win=131840 Len=0
+
+Frame 233: Packet, 54 bytes on wire (432 bits), 54 bytes captured (432 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10514, Dst Port: 443, Seq: 570, Ack: 2931, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    235 2.360639800    192.168.2.109         154.40.45.168         TCP      54     10515 → 443 [ACK] Seq=253 Ack=2389 Win=132352 Len=0
+
+Frame 235: Packet, 54 bytes on wire (432 bits), 54 bytes captured (432 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10515, Dst Port: 443, Seq: 253, Ack: 2389, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    236 2.363138500    192.168.2.109         154.40.45.168         TLSv1.2  118    Change Cipher Spec, Application Data
+
+Frame 236: Packet, 118 bytes on wire (944 bits), 118 bytes captured (944 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10515, Dst Port: 443, Seq: 253, Ack: 2389, Len: 64
+Transport Layer Security
+
+No.     Time           Source                Destination           Protocol Length Info
+    238 2.363703000    192.168.2.109         154.40.45.168         TCP      54     10516 → 443 [ACK] Seq=253 Ack=2389 Win=132352 Len=0
+
+Frame 238: Packet, 54 bytes on wire (432 bits), 54 bytes captured (432 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10516, Dst Port: 443, Seq: 253, Ack: 2389, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    239 2.363800700    192.168.2.109         154.40.45.168         TLSv1.2  273    Application Data
+
+Frame 239: Packet, 273 bytes on wire (2184 bits), 273 bytes captured (2184 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10515, Dst Port: 443, Seq: 317, Ack: 2389, Len: 219
+Transport Layer Security
+
+No.     Time           Source                Destination           Protocol Length Info
+    241 2.368185900    192.168.2.109         154.40.45.168         TLSv1.2  118    Change Cipher Spec, Application Data
+
+Frame 241: Packet, 118 bytes on wire (944 bits), 118 bytes captured (944 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10516, Dst Port: 443, Seq: 253, Ack: 2389, Len: 64
+Transport Layer Security
+
+No.     Time           Source                Destination           Protocol Length Info
+    244 2.369728700    192.168.2.109         154.40.45.168         TCP      54     10513 → 443 [ACK] Seq=572 Ack=2931 Win=131840 Len=0
+
+Frame 244: Packet, 54 bytes on wire (432 bits), 54 bytes captured (432 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10513, Dst Port: 443, Seq: 572, Ack: 2931, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    245 2.370832700    192.168.2.109         154.40.45.168         TLSv1.2  307    Application Data
+
+Frame 245: Packet, 307 bytes on wire (2456 bits), 307 bytes captured (2456 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10516, Dst Port: 443, Seq: 317, Ack: 2389, Len: 253
+Transport Layer Security
+
+No.     Time           Source                Destination           Protocol Length Info
+    246 2.371586700    192.168.2.109         154.40.45.168         TCP      54     10514 → 443 [FIN, ACK] Seq=570 Ack=3442 Win=131328 Len=0
+
+Frame 246: Packet, 54 bytes on wire (432 bits), 54 bytes captured (432 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10514, Dst Port: 443, Seq: 570, Ack: 3442, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    248 2.378617200    192.168.2.109         154.40.45.168         TCP      54     10513 → 443 [FIN, ACK] Seq=572 Ack=3442 Win=131328 Len=0
+
+Frame 248: Packet, 54 bytes on wire (432 bits), 54 bytes captured (432 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10513, Dst Port: 443, Seq: 572, Ack: 3442, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    250 2.428956500    192.168.2.109         154.40.45.168         TCP      66     [TCP Dup ACK 235#1] 10515 → 443 [ACK] Seq=536 Ack=2389 Win=132352 Len=0 SLE=2660 SRE=2931
+
+Frame 250: Packet, 66 bytes on wire (528 bits), 66 bytes captured (528 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10515, Dst Port: 443, Seq: 536, Ack: 2389, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    253 2.435032700    192.168.2.109         154.40.45.168         TCP      54     10516 → 443 [ACK] Seq=570 Ack=2931 Win=131840 Len=0
+
+Frame 253: Packet, 54 bytes on wire (432 bits), 54 bytes captured (432 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10516, Dst Port: 443, Seq: 570, Ack: 2931, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    255 2.438093700    192.168.2.109         154.40.45.168         TCP      66     [TCP Dup ACK 235#2] 10515 → 443 [ACK] Seq=536 Ack=2389 Win=132352 Len=0 SLE=2660 SRE=3442
+
+Frame 255: Packet, 66 bytes on wire (528 bits), 66 bytes captured (528 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10515, Dst Port: 443, Seq: 536, Ack: 2389, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    258 2.448935900    192.168.2.109         154.40.45.168         TCP      54     10513 → 443 [ACK] Seq=573 Ack=3443 Win=131328 Len=0
+
+Frame 258: Packet, 54 bytes on wire (432 bits), 54 bytes captured (432 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10513, Dst Port: 443, Seq: 573, Ack: 3443, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    259 2.456157100    192.168.2.109         154.40.45.168         TCP      54     10516 → 443 [FIN, ACK] Seq=570 Ack=3442 Win=131328 Len=0
+
+Frame 259: Packet, 54 bytes on wire (432 bits), 54 bytes captured (432 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10516, Dst Port: 443, Seq: 570, Ack: 3442, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    261 2.514526000    192.168.2.109         154.40.45.168         TCP      54     10515 → 443 [ACK] Seq=536 Ack=3442 Win=131328 Len=0
+
+Frame 261: Packet, 54 bytes on wire (432 bits), 54 bytes captured (432 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10515, Dst Port: 443, Seq: 536, Ack: 3442, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    262 2.517334500    192.168.2.109         154.40.45.168         TCP      54     10515 → 443 [FIN, ACK] Seq=536 Ack=3442 Win=131328 Len=0
+
+Frame 262: Packet, 54 bytes on wire (432 bits), 54 bytes captured (432 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10515, Dst Port: 443, Seq: 536, Ack: 3442, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    264 2.522646100    192.168.2.109         154.40.45.168         TCP      54     10516 → 443 [ACK] Seq=571 Ack=3443 Win=131328 Len=0
+
+Frame 264: Packet, 54 bytes on wire (432 bits), 54 bytes captured (432 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10516, Dst Port: 443, Seq: 571, Ack: 3443, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    265 2.687022700    192.168.2.109         154.40.45.168         TCP      54     [TCP Retransmission] 10514 → 443 [FIN, ACK] Seq=570 Ack=3442 Win=131328 Len=0
+
+Frame 265: Packet, 54 bytes on wire (432 bits), 54 bytes captured (432 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10514, Dst Port: 443, Seq: 570, Ack: 3442, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    267 2.707193100    192.168.2.109         154.40.45.168         TCP      54     10514 → 443 [ACK] Seq=571 Ack=3443 Win=131328 Len=0
+
+Frame 267: Packet, 54 bytes on wire (432 bits), 54 bytes captured (432 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10514, Dst Port: 443, Seq: 571, Ack: 3443, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    268 2.827114200    192.168.2.109         154.40.45.168         TCP      54     [TCP Retransmission] 10515 → 443 [FIN, ACK] Seq=536 Ack=3442 Win=131328 Len=0
+
+Frame 268: Packet, 54 bytes on wire (432 bits), 54 bytes captured (432 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10515, Dst Port: 443, Seq: 536, Ack: 3442, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    270 2.851132000    192.168.2.109         154.40.45.168         TCP      54     10515 → 443 [ACK] Seq=537 Ack=3443 Win=131328 Len=0
+
+Frame 270: Packet, 54 bytes on wire (432 bits), 54 bytes captured (432 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 154.40.45.168
+Transmission Control Protocol, Src Port: 10515, Dst Port: 443, Seq: 537, Ack: 3443, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    375 5.128367900    192.168.2.109         20.205.243.168        TCP      66     10519 → 443 [SYN] Seq=0 Win=64240 Len=0 MSS=1460 WS=256 SACK_PERM
+
+Frame 375: Packet, 66 bytes on wire (528 bits), 66 bytes captured (528 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 20.205.243.168
+Transmission Control Protocol, Src Port: 10519, Dst Port: 443, Seq: 0, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    384 5.224509600    192.168.2.109         20.205.243.168        TCP      54     10519 → 443 [ACK] Seq=1 Ack=1 Win=132096 Len=0
+
+Frame 384: Packet, 54 bytes on wire (432 bits), 54 bytes captured (432 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 20.205.243.168
+Transmission Control Protocol, Src Port: 10519, Dst Port: 443, Seq: 1, Ack: 1, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    385 5.225942000    192.168.2.109         20.205.243.168        TLSv1.3  305    Client Hello (SNI=api.github.com)
+
+Frame 385: Packet, 305 bytes on wire (2440 bits), 305 bytes captured (2440 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 20.205.243.168
+Transmission Control Protocol, Src Port: 10519, Dst Port: 443, Seq: 1, Ack: 1, Len: 251
+Transport Layer Security
+
+No.     Time           Source                Destination           Protocol Length Info
+    388 5.322797600    192.168.2.109         20.205.243.168        TCP      54     10519 → 443 [ACK] Seq=252 Ack=2801 Win=132096 Len=0
+
+Frame 388: Packet, 54 bytes on wire (432 bits), 54 bytes captured (432 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 20.205.243.168
+Transmission Control Protocol, Src Port: 10519, Dst Port: 443, Seq: 252, Ack: 2801, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    390 5.330519600    192.168.2.109         20.205.243.168        TLSv1.3  118    Change Cipher Spec, Application Data
+
+Frame 390: Packet, 118 bytes on wire (944 bits), 118 bytes captured (944 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 20.205.243.168
+Transmission Control Protocol, Src Port: 10519, Dst Port: 443, Seq: 252, Ack: 3087, Len: 64
+Transport Layer Security
+
+No.     Time           Source                Destination           Protocol Length Info
+    391 5.330946400    192.168.2.109         20.205.243.168        TLSv1.3  252    Application Data
+
+Frame 391: Packet, 252 bytes on wire (2016 bits), 252 bytes captured (2016 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 20.205.243.168
+Transmission Control Protocol, Src Port: 10519, Dst Port: 443, Seq: 316, Ack: 3087, Len: 198
+Transport Layer Security
+
+No.     Time           Source                Destination           Protocol Length Info
+    394 5.426816200    192.168.2.109         20.205.243.168        TCP      54     10519 → 443 [ACK] Seq=514 Ack=3245 Win=131584 Len=0
+
+Frame 394: Packet, 54 bytes on wire (432 bits), 54 bytes captured (432 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 20.205.243.168
+Transmission Control Protocol, Src Port: 10519, Dst Port: 443, Seq: 514, Ack: 3245, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    398 5.704605000    192.168.2.109         20.205.243.168        TCP      54     10519 → 443 [ACK] Seq=514 Ack=6045 Win=132096 Len=0
+
+Frame 398: Packet, 54 bytes on wire (432 bits), 54 bytes captured (432 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 20.205.243.168
+Transmission Control Protocol, Src Port: 10519, Dst Port: 443, Seq: 514, Ack: 6045, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    400 5.706914200    192.168.2.109         20.205.243.168        TCP      54     10519 → 443 [FIN, ACK] Seq=514 Ack=6328 Win=131584 Len=0
+
+Frame 400: Packet, 54 bytes on wire (432 bits), 54 bytes captured (432 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 20.205.243.168
+Transmission Control Protocol, Src Port: 10519, Dst Port: 443, Seq: 514, Ack: 6328, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    418 5.803505000    192.168.2.109         20.205.243.168        TCP      54     10519 → 443 [ACK] Seq=515 Ack=6353 Win=131584 Len=0
+
+Frame 418: Packet, 54 bytes on wire (432 bits), 54 bytes captured (432 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 20.205.243.168
+Transmission Control Protocol, Src Port: 10519, Dst Port: 443, Seq: 515, Ack: 6353, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+    458 6.420528600    192.168.2.109         14.29.43.177          TCP      55     9830 → 443 [ACK] Seq=1 Ack=1 Win=517 Len=1
+
+Frame 458: Packet, 55 bytes on wire (440 bits), 55 bytes captured (440 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 14.29.43.177
+Transmission Control Protocol, Src Port: 9830, Dst Port: 443, Seq: 1, Ack: 1, Len: 1
+
+No.     Time           Source                Destination           Protocol Length Info
+    464 6.435678400    192.168.2.109         14.29.43.177          TCP      55     9864 → 443 [ACK] Seq=1 Ack=1 Win=517 Len=1
+
+Frame 464: Packet, 55 bytes on wire (440 bits), 55 bytes captured (440 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 14.29.43.177
+Transmission Control Protocol, Src Port: 9864, Dst Port: 443, Seq: 1, Ack: 1, Len: 1
+
+No.     Time           Source                Destination           Protocol Length Info
+    732 10.348548600   192.168.2.109         111.225.145.47        TLSv1.2  84     Application Data
+
+Frame 732: Packet, 84 bytes on wire (672 bits), 84 bytes captured (672 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 111.225.145.47
+Transmission Control Protocol, Src Port: 9150, Dst Port: 443, Seq: 1, Ack: 1, Len: 30
+Transport Layer Security
+
+No.     Time           Source                Destination           Protocol Length Info
+    751 10.441821300   192.168.2.109         111.225.145.47        TCP      54     9150 → 443 [ACK] Seq=31 Ack=27 Win=510 Len=0
+
+Frame 751: Packet, 54 bytes on wire (432 bits), 54 bytes captured (432 bits) on interface \Device\NPF_{4CE631CE-268E-4242-B66F-34BECD395435}, id 0
+Ethernet II, Src: 00:00:00_00:14:46 (00:00:00:00:14:46), Dst: TpLinkTechno_90:a9:f0 (78:a1:06:90:a9:f0)
+Internet Protocol Version 4, Src: 192.168.2.109, Dst: 111.225.145.47
+Transmission Control Protocol, Src Port: 9150, Dst Port: 443, Seq: 31, Ack: 27, Len: 0
