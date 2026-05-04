@@ -1,4 +1,4 @@
-name: Flutter build(Android分架构+iOS+macOS+Windows+Linux)
+name: Flutter 全平台客户端构建 (Android独立+Linux独立+全平台)
 
 on:
   push:
@@ -12,19 +12,12 @@ permissions:
   contents: write
 
 jobs:
-  # --------------- 1. 构建 Android(分架构) + Linux ---------------
-  build-android-linux:
+  # --------------- 1. 【独立】构建 Android（分架构APK）---------------
+  build-android:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      # Linux 依赖（已修复视频插件）
-      - name: 安装 Linux 构建依赖
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y cmake libgtk-3-dev liblzma-dev libsecret-1-dev libjsoncpp-dev libnotify-dev libsdl2-dev libmpv-dev
-
-      # Java 环境
       - name: Setup Java 17
         uses: actions/setup-java@v4
         with:
@@ -32,13 +25,11 @@ jobs:
           distribution: 'zulu'
           cache: gradle
 
-      # 同意 Android 许可证
       - name: 同意 Android 许可证
         run: |
           yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
           yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "ndk;29.0.14033849"
 
-      # Flutter 环境
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
@@ -47,31 +38,48 @@ jobs:
 
       - run: flutter pub get
 
-      # 构建 Android 分架构独立 APK
-      - name: 构建 Android 分架构独立 APK
+      # 构建分架构独立APK
+      - name: 构建 Android 分架构APK
         run: flutter build apk --debug --split-per-abi
 
-      # 检查APK文件（方便你确认生成情况）
-      - name: 检查APK文件
-        run: ls -la build/app/outputs/flutter-apk/
+      # 上传【纯Android产物】独立名称
+      - uses: actions/upload-artifact@v4
+        with:
+          name: android-build
+          path: build/app/outputs/flutter-apk/*.apk
 
-      # 构建 Linux
+  # --------------- 2. 【独立】构建 Linux ---------------
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 安装 Linux 构建依赖
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake libgtk-3-dev liblzma-dev libsecret-1-dev libjsoncpp-dev libnotify-dev libsdl2-dev libmpv-dev
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - run: flutter pub get
+
       - name: 构建 Linux
         run: flutter build linux --release
 
-      # 打包 Linux
       - name: 打包 Linux
         run: zip -r linux-build.zip build/linux/x64/release/
 
-      # 上传所有产物（通配符确保所有APK都被上传）
+      # 上传【纯Linux产物】独立名称
       - uses: actions/upload-artifact@v4
         with:
-          name: android-linux-build
-          path: |
-            build/app/outputs/flutter-apk/*.apk
-            linux-build.zip
+          name: linux-build
+          path: linux-build.zip
 
-  # --------------- 2. 构建 Windows ---------------
+  # --------------- 3. 构建 Windows ---------------
   build-windows:
     runs-on: windows-latest
     steps:
@@ -91,7 +99,7 @@ jobs:
           name: windows-build
           path: windows-build.zip
 
-  # --------------- 3. 构建 iOS + macOS ---------------
+  # --------------- 4. 构建 iOS + macOS ---------------
   build-apple:
     runs-on: macos-latest
     steps:
@@ -103,14 +111,11 @@ jobs:
           cache: true
       - run: flutter pub get
 
-      # 构建 iOS（无签名）
       - name: 构建 iOS
         run: flutter build ios --debug --no-codesign
-      # 构建 macOS
       - name: 构建 macOS
         run: flutter build macos --release
 
-      # 打包
       - name: 打包 iOS & macOS
         run: |
           zip -r ios-build.zip build/ios/iphoneos/
@@ -123,43 +128,48 @@ jobs:
             ios-build.zip
             macos-build.zip
 
-  # --------------- 4. 直接上传到 Release ---------------
+  # --------------- 5. 统一上传（全平台聚合，无覆盖）---------------
   upload-to-release:
-    needs: [build-android-linux, build-windows, build-apple]
+    needs: [build-android, build-linux, build-windows, build-apple]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      # 🔥 关键修改：所有文件直接下载到同一个目录，不需要合并
-      - name: 下载 Android + Linux 构建包
+      # 分别下载所有独立产物，全部放到 packages 目录
+      - name: 下载 Android APK
         uses: actions/download-artifact@v4
         with:
-          name: android-linux-build
+          name: android-build
           path: ./packages
-      - name: 下载 Windows 构建包
+      - name: 下载 Linux
+        uses: actions/download-artifact@v4
+        with:
+          name: linux-build
+          path: ./packages
+      - name: 下载 Windows
         uses: actions/download-artifact@v4
         with:
           name: windows-build
           path: ./packages
-      - name: 下载 iOS + macOS 构建包
+      - name: 下载 iOS+macOS
         uses: actions/download-artifact@v4
         with:
           name: apple-build
           path: ./packages
 
-      # 直接上传所有文件
-      - name: 上传到 GitHub Release
+      # 上传所有产物到 Release
+      - name: 上传全平台到 GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: build-${{ github.sha }}
           name: Flutter 全平台离线客户端
           body: |
-            ✅ Android 分架构独立APK：
+            📱 Android 分架构APK：
             • armv7a (32位)
-            • armv8 (64位)
+            • arm64-v8a (64位)
             • x86_64 (模拟器)
-            ✅ 桌面端：Windows / macOS / Linux
-            ✅ 移动端：iOS
+            🖥️ 桌面端：Windows / macOS / Linux
+            📱 移动端：iOS
           files: ./packages/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
