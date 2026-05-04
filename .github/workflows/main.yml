@@ -40,11 +40,7 @@ jobs:
 
       # 构建分架构独立APK
       - name: 构建 Android 分架构APK
-        run: flutter build apk --release \
-          --split-per-abi \
-          --obfuscate \
-          --split-debug-info=./debug-info \
-          --tree-shake-icons
+        run: flutter build apk --release --split-per-abi --obfuscate --split-debug-info=./debug-info --tree-shake-icons
 
       # 上传【纯Android产物】独立名称
       - uses: actions/upload-artifact@v4
