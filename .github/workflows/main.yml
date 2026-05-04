@@ -1,28 +1,25 @@
-name: Flutter 全平台客户端构建 (Android+iOS+macOS+Windows+Linux)
+name: Flutter 全平台客户端构建 (Android分架构+iOS+macOS+Windows+Linux)
 
-# 🔥 核心规则：修改 README / 工作流文件 不自动构建
-# 仅修改项目代码时自动构建，永远支持手动触发
+# 触发规则
 on:
   push:
     branches: [ main ]
-    # 忽略以下文件修改，不触发自动编译
     paths-ignore:
-      - 'README.md'           # 读我文件变更
-      - '.github/workflows/**'# 工作流配置变更
-  workflow_dispatch:  # 手动触发（永远可用）
+      - 'README.md'
+      - '.github/workflows/**'
+  workflow_dispatch:
 
-# 权限：允许创建/上传 Release
 permissions:
   contents: write
 
 jobs:
-  # --------------- 1. 构建 Android + Linux ---------------
+  # --------------- 1. 构建 Android(分架构) + Linux ---------------
   build-android-linux:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      # 安装 Linux 构建依赖（已修复 media_kit 依赖）
+      # Linux 依赖（已修复视频插件）
       - name: 安装 Linux 构建依赖
         run: |
           sudo apt-get update
@@ -51,24 +48,26 @@ jobs:
 
       - run: flutter pub get
 
-      # 构建 Android
-      - name: 构建 Android APK
-        run: flutter build apk --debug
+      # 🔥 核心修改：Android 分架构构建（独立APK，不合并）
+      - name: 构建 Android 分架构独立 APK
+        run: flutter build apk --debug --split-per-abi
 
       # 构建 Linux
       - name: 构建 Linux
         run: flutter build linux --release
 
-      # 压缩产物
+      # 打包 Linux
       - name: 打包 Linux
         run: zip -r linux-build.zip build/linux/x64/release/
 
-      # 🔴 关键修改：独立名称，不覆盖
+      # 上传：3个独立Android架构APK + Linux包
       - uses: actions/upload-artifact@v4
         with:
           name: android-linux-build
           path: |
-            build/app/outputs/flutter-apk/app-debug.apk
+            build/app/outputs/flutter-apk/app-armeabi-v7a-debug.apk   # armv7a 32位
+            build/app/outputs/flutter-apk/app-arm64-v8a-debug.apk     # armv8 64位
+            build/app/outputs/flutter-apk/app-x86_64-debug.apk        # x86_64 模拟器
             linux-build.zip
 
   # --------------- 2. 构建 Windows ---------------
@@ -86,13 +85,12 @@ jobs:
         run: flutter build windows --release
       - name: 打包 Windows
         run: Compress-Archive -Path build/windows/x64/runner/Release/* -DestinationPath windows-build.zip
-      # 🔴 关键修改：独立名称
       - uses: actions/upload-artifact@v4
         with:
           name: windows-build
           path: windows-build.zip
 
-  # --------------- 3. 构建苹果全系 (iOS + macOS) ---------------
+  # --------------- 3. 构建 iOS + macOS ---------------
   build-apple:
     runs-on: macos-latest
     steps:
@@ -104,10 +102,9 @@ jobs:
           cache: true
       - run: flutter pub get
 
-      # 构建 iOS（无签名调试版）
+      # 构建 iOS（无签名）
       - name: 构建 iOS
         run: flutter build ios --debug --no-codesign
-
       # 构建 macOS
       - name: 构建 macOS
         run: flutter build macos --release
@@ -118,7 +115,6 @@ jobs:
           zip -r ios-build.zip build/ios/iphoneos/
           zip -r macos-build.zip build/macos/Build/Products/Release/
 
-      # 🔴 关键修改：独立名称
       - uses: actions/upload-artifact@v4
         with:
           name: apple-build
@@ -126,37 +122,37 @@ jobs:
             ios-build.zip
             macos-build.zip
 
-  # --------------- 4. 统一上传到 Release ---------------
+  # --------------- 4. 全量上传到 Release ---------------
   upload-to-release:
     needs: [build-android-linux, build-windows, build-apple]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      # 🔴 关键修改：分别下载 3 个独立构建包（全部聚合到 packages 目录）
-      - name: 下载 Android + Linux 包
+      # 下载所有平台文件
+      - name: 下载 Android + Linux
         uses: actions/download-artifact@v4
-        with:
-          name: android-linux-build
-          path: ./packages
-      - name: 下载 Windows 包
+        with: { name: android-linux-build, path: ./packages }
+      - name: 下载 Windows
         uses: actions/download-artifact@v4
-        with:
-          name: windows-build
-          path: ./packages
-      - name: 下载 iOS + macOS 包
+        with: { name: windows-build, path: ./packages }
+      - name: 下载 iOS + macOS
         uses: actions/download-artifact@v4
-        with:
-          name: apple-build
-          path: ./packages
+        with: { name: apple-build, path: ./packages }
 
-      # 上传所有平台包到 Release
+      # 上传所有文件
       - name: 上传到 GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: build-${{ github.sha }}
           name: Flutter 全平台离线客户端
-          body: 自动构建 | 安卓+iOS+macOS+Windows+Linux 纯客户端
+          body: |
+            ✅ Android 分架构独立APK：
+            • armv7a (32位)
+            • armv8 (64位)
+            • x86_64 (模拟器)
+            ✅ 桌面端：Windows / macOS / Linux
+            ✅ 移动端：iOS
           files: ./packages/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
