@@ -1,6 +1,5 @@
-name: Flutter 全平台客户端构建 (Android分架构+iOS+macOS+Windows+Linux)
+name: Flutter building (Android+iOS+macOS+Windows+Linux)
 
-# 触发规则
 on:
   push:
     branches: [ main ]
@@ -48,9 +47,13 @@ jobs:
 
       - run: flutter pub get
 
-      # 🔥 核心修改：Android 分架构构建（独立APK，不合并）
+      # 构建 Android 分架构独立 APK
       - name: 构建 Android 分架构独立 APK
         run: flutter build apk --debug --split-per-abi
+
+      # 🔴 关键修复1：列出APK目录，确认文件是否生成
+      - name: 检查APK文件
+        run: ls -la build/app/outputs/flutter-apk/
 
       # 构建 Linux
       - name: 构建 Linux
@@ -60,14 +63,12 @@ jobs:
       - name: 打包 Linux
         run: zip -r linux-build.zip build/linux/x64/release/
 
-      # 上传：3个独立Android架构APK + Linux包
+      # 🔴 关键修复2：用通配符上传所有APK，避免路径/文件名错误
       - uses: actions/upload-artifact@v4
         with:
           name: android-linux-build
           path: |
-            build/app/outputs/flutter-apk/app-armeabi-v7a-debug.apk   # armv7a 32位
-            build/app/outputs/flutter-apk/app-arm64-v8a-debug.apk     # armv8 64位
-            build/app/outputs/flutter-apk/app-x86_64-debug.apk        # x86_64 模拟器
+            build/app/outputs/flutter-apk/*.apk
             linux-build.zip
 
   # --------------- 2. 构建 Windows ---------------
@@ -129,16 +130,29 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # 下载所有平台文件
+      # 🔴 关键修复3：分目录下载，避免不同artifact的文件互相覆盖
       - name: 下载 Android + Linux
         uses: actions/download-artifact@v4
-        with: { name: android-linux-build, path: ./packages }
+        with:
+          name: android-linux-build
+          path: ./packages/android-linux
       - name: 下载 Windows
         uses: actions/download-artifact@v4
-        with: { name: windows-build, path: ./packages }
+        with:
+          name: windows-build
+          path: ./packages/windows
       - name: 下载 iOS + macOS
         uses: actions/download-artifact@v4
-        with: { name: apple-build, path: ./packages }
+        with:
+          name: apple-build
+          path: ./packages/apple
+
+      # 合并所有文件到同一个目录
+      - name: 合并所有文件
+        run: |
+          cp ./packages/android-linux/* ./packages/
+          cp ./packages/windows/* ./packages/
+          cp ./packages/apple/* ./packages/
 
       # 上传所有文件
       - name: 上传到 GitHub Release
