@@ -22,7 +22,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # 修复：安装 Linux 桌面构建必需依赖 + media_kit 依赖的 libmpv-dev
+      # 安装 Linux 构建依赖（已修复 media_kit 依赖）
       - name: 安装 Linux 构建依赖
         run: |
           sudo apt-get update
@@ -36,7 +36,7 @@ jobs:
           distribution: 'zulu'
           cache: gradle
 
-      # 修复 Android SDK/NDK 许可证
+      # 同意 Android 许可证
       - name: 同意 Android 许可证
         run: |
           yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
@@ -63,10 +63,10 @@ jobs:
       - name: 打包 Linux
         run: zip -r linux-build.zip build/linux/x64/release/
 
-      # 上传临时文件
+      # 🔴 关键修改：独立名称，不覆盖
       - uses: actions/upload-artifact@v4
         with:
-          name: packages
+          name: android-linux-build
           path: |
             build/app/outputs/flutter-apk/app-debug.apk
             linux-build.zip
@@ -86,9 +86,10 @@ jobs:
         run: flutter build windows --release
       - name: 打包 Windows
         run: Compress-Archive -Path build/windows/x64/runner/Release/* -DestinationPath windows-build.zip
+      # 🔴 关键修改：独立名称
       - uses: actions/upload-artifact@v4
         with:
-          name: packages
+          name: windows-build
           path: windows-build.zip
 
   # --------------- 3. 构建苹果全系 (iOS + macOS) ---------------
@@ -117,9 +118,10 @@ jobs:
           zip -r ios-build.zip build/ios/iphoneos/
           zip -r macos-build.zip build/macos/Build/Products/Release/
 
+      # 🔴 关键修改：独立名称
       - uses: actions/upload-artifact@v4
         with:
-          name: packages
+          name: apple-build
           path: |
             ios-build.zip
             macos-build.zip
@@ -130,12 +132,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: 下载所有构建包
+
+      # 🔴 关键修改：分别下载 3 个独立构建包（全部聚合到 packages 目录）
+      - name: 下载 Android + Linux 包
         uses: actions/download-artifact@v4
         with:
-          name: packages
+          name: android-linux-build
+          path: ./packages
+      - name: 下载 Windows 包
+        uses: actions/download-artifact@v4
+        with:
+          name: windows-build
+          path: ./packages
+      - name: 下载 iOS + macOS 包
+        uses: actions/download-artifact@v4
+        with:
+          name: apple-build
           path: ./packages
 
+      # 上传所有平台包到 Release
       - name: 上传到 GitHub Release
         uses: softprops/action-gh-release@v2
         with:
