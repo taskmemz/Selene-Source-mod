@@ -1,7 +1,7 @@
 # Selene
 
 <div align="center">
-  <img src="logo.jpg" alt="Selene Logo" width="120">
+  <img src="logo.png" alt="Selene Logo" width="120">
 </div>
 
 > 🎬 **Selene** 是以 [MoonTV](https://github.com/MoonTechLab/LunaTV) v100 版本 / [Helios](https://github.com/MoonTechLab/Helios) 为后端的客户端，保证原汁原味的同时，优化了移动端和桌面端操作体验。它基于 **Flutter** 构建，目前支持 Android、iOS、macOS 和 Windows 平台。
@@ -102,7 +102,7 @@
 
 #### 🐛 修复：WAF 反代 Cookie 冲突导致登录后被踢回
 
-- **问题**：使用雷池 (SafeLine) WAF 反向代理时，`Set-Cookie` 响应头包含多个以 `,` 拼接的 Cookie（`sl-waiting-session`、`sl-waiting-state`、`auth`、`sl-session`）。原来的 `_parseCookies` 用 `split(';')[0]` 只取到了第一个 `sl-waiting-session`，丢失了真正的业务 `auth` 会话 Cookie。导致登录请求返回 200，但后续 API 请求因缺少 auth Cookie 返回 401，立即被踢回登录页。
+- **问题**：使用雷池 (SafeLine)等 WAF之类 反向代理时，`Set-Cookie` 响应头包含多个以 `,` 拼接的 Cookie（`sl-waiting-session`、`sl-waiting-state`、`auth`、`sl-session`）。原来的 `_parseCookies` 用 `split(';')[0]` 只取到了第一个 `sl-waiting-session`，丢失了真正的业务 `auth` 会话 Cookie。导致登录请求返回 200，但后续 API 请求因缺少 auth Cookie 返回 401，立即被踢回登录页。
 - **修复**：重写 `_parseCookies`，按 `\n` 和 `,` 切分多个 Cookie，提取每个 `;` 之前的 `name=value`，并用 `contains('=')` 过滤掉 Expires 日期等无效碎片，确保 WAF 注入的 Cookie 和业务 Cookie 全部正确保留。
 
 #### ✨ 新增：登录页高级设置面板
