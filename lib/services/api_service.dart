@@ -73,6 +73,30 @@ class ApiService {
     return '$cleanBaseUrl$cleanEndpoint';
   }
 
+  /// 添加浏览器特征头
+  static Future<void> _addBrowserHeaders(Map<String, String> headers) async {
+    final ua = await UserDataService.getCustomUserAgent();
+    headers['User-Agent'] = ua;
+
+    final enabled = await UserDataService.getEnableBrowserHeaders();
+    if (enabled) {
+      headers['Accept-Language'] = 'zh-CN,zh;q=0.9,en;q=0.8';
+      headers['Accept-Encoding'] = 'gzip, deflate, br';
+      headers['Sec-Fetch-Site'] = 'same-origin';
+      headers['Sec-Fetch-Mode'] = 'cors';
+      headers['Sec-Fetch-Dest'] = 'empty';
+      headers['Sec-Ch-Ua'] =
+          '"Chromium";v="124", "Google Chrome";v="124", "Not-A.Brand";v="99"';
+      headers['Sec-Ch-Ua-Mobile'] = '?0';
+      headers['Sec-Ch-Ua-Platform'] = '"Windows"';
+    }
+
+    final customHeader = await UserDataService.getCustomHeader();
+    if (customHeader.isNotEmpty) {
+      headers.addAll(customHeader);
+    }
+  }
+
   /// 构建请求头
   static Future<Map<String, String>> _buildHeaders({
     Map<String, String>? additionalHeaders,
@@ -82,6 +106,9 @@ class ApiService {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
     };
+
+    // 添加浏览器特征头
+    await _addBrowserHeaders(headers);
 
     // 添加认证cookies
     if (includeAuth) {
@@ -574,13 +601,16 @@ class ApiService {
       }
       String loginUrl = '$baseUrl/api/login';
 
+      final loginHeaders = <String, String>{
+        'Content-Type': 'application/json',
+      };
+      await _addBrowserHeaders(loginHeaders);
+
       // 发送登录请求
       final response = await http
           .post(
             Uri.parse(loginUrl),
-            headers: {
-              'Content-Type': 'application/json',
-            },
+            headers: loginHeaders,
             body: json.encode({
               'username': username,
               'password': password,
@@ -802,17 +832,26 @@ class ApiService {
     }
   }
 
-  /// 解析 Set-Cookie 头部
+  /// 解析 Set-Cookie 头部，提取所有 Cookie 的 name=value
   static String _parseCookies(http.Response response) {
-    List<String> cookies = [];
+    final allCookies = response.headers['set-cookie'];
+    if (allCookies == null || allCookies.isEmpty) return '';
 
-    // 获取所有 Set-Cookie 头部
-    final setCookieHeaders = response.headers['set-cookie'];
-    if (setCookieHeaders != null) {
-      // HTTP 头部通常是 String 类型
-      final cookieParts = setCookieHeaders.split(';');
-      if (cookieParts.isNotEmpty) {
-        cookies.add(cookieParts[0].trim());
+    // 按 \n（Dart http 包多值拼接方式）或 ","（HTTP 标准）切分多个 cookie
+    final lines = allCookies
+        .split('\n')
+        .expand((line) => line.split(','))
+        .where((s) => s.trim().isNotEmpty)
+        .toList();
+
+    final cookies = <String>[];
+    for (final line in lines) {
+      final semicolonIdx = line.indexOf(';');
+      final nameValue = semicolonIdx > 0
+          ? line.substring(0, semicolonIdx).trim()
+          : line.trim();
+      if (nameValue.contains('=')) {
+        cookies.add(nameValue);
       }
     }
 

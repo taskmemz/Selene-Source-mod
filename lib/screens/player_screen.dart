@@ -545,7 +545,7 @@ class _PlayerScreenState extends State<PlayerScreen>
       // 异步保存播放记录（不等待结果）
       PageCacheService().savePlayRecord(playRecord, context).then((_) {
         debugPrint(
-            '保存播放进度 [场景: $scene]: source: $currentSourceSnapshot, id: $currentIDSnapshot, 第${currentEpisodeIndexSnapshot + 1}集, 时间: ${playTime}秒');
+            '保存播放进度 [场景: $scene]: source: $currentSourceSnapshot, id: $currentIDSnapshot, 第${currentEpisodeIndexSnapshot + 1}集, 时间: $playTime秒');
       }).catchError((e) {
         debugPrint('保存播放进度失败 [场景: $scene]: $e');
       });
@@ -1165,7 +1165,7 @@ class _PlayerScreenState extends State<PlayerScreen>
     // 等待下一帧，确保 MobileVideoPlayerWidget 已经重新创建
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted && currentDetail != null) {
-        debugPrint('恢复播放: 第${resumeEpisodeIndex + 1}集, ${resumeSeconds}秒');
+        debugPrint('恢复播放: 第${resumeEpisodeIndex + 1}集, $resumeSeconds秒');
         // 调用 startPlay 重新初始化播放器
         startPlay(resumeEpisodeIndex, resumeSeconds);
       }
@@ -1435,12 +1435,12 @@ class _PlayerScreenState extends State<PlayerScreen>
     return LayoutBuilder(
       builder: (context, constraints) {
         final double screenWidth = constraints.maxWidth;
-        final double padding = 16.0;
-        final double spacing = 12.0;
+        const double padding = 16.0;
+        const double spacing = 12.0;
         final crossAxisCount = _isTablet ? 6 : 3;
         final double availableWidth =
             screenWidth - (padding * 2) - (spacing * (crossAxisCount - 1));
-        final double minItemWidth = 80.0;
+        const double minItemWidth = 80.0;
         final double calculatedItemWidth = availableWidth / crossAxisCount;
         final double itemWidth = math.max(calculatedItemWidth, minItemWidth);
         final double itemHeight = itemWidth * 2.0;
@@ -1639,7 +1639,7 @@ class _PlayerScreenState extends State<PlayerScreen>
           builder: (context, constraints) {
             // 计算按钮宽度：根据设备类型调整
             final screenWidth = constraints.maxWidth;
-            final horizontalPadding = 32.0; // 左右各16
+            const horizontalPadding = 32.0; // 左右各16
             final availableWidth = screenWidth - horizontalPadding;
             final cardsPerView = _isTablet ? 6.2 : 3.2;
             final buttonWidth = (availableWidth / cardsPerView) - 6; // 减去右边距6
@@ -1800,7 +1800,7 @@ class _PlayerScreenState extends State<PlayerScreen>
       builder: (context) {
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
-            return Container(
+            return SizedBox(
               height: panelHeight,
               width: double.infinity,
               child: PlayerEpisodesPanel(
@@ -1901,7 +1901,7 @@ class _PlayerScreenState extends State<PlayerScreen>
       builder: (context) {
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
-            return Container(
+            return SizedBox(
               height: panelHeight,
               width: double.infinity,
               child: PlayerDetailsPanel(
@@ -2038,7 +2038,7 @@ class _PlayerScreenState extends State<PlayerScreen>
       builder: (context, constraints) {
         // 计算卡片宽度：根据设备类型调整
         final screenWidth = constraints.maxWidth;
-        final horizontalPadding = 32.0; // 左右各16
+        const horizontalPadding = 32.0; // 左右各16
         final availableWidth = screenWidth - horizontalPadding;
         final cardsPerView = _isTablet ? 6.2 : 3.2;
         final cardWidth = (availableWidth / cardsPerView) - 6; // 减去右边距6
@@ -2168,7 +2168,7 @@ class _PlayerScreenState extends State<PlayerScreen>
       builder: (context) {
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
-            return Container(
+            return SizedBox(
               height: panelHeight,
               width: double.infinity,
               child: PlayerSourcesPanel(
@@ -2619,10 +2619,12 @@ class _PlayerScreenState extends State<PlayerScreen>
           ),
           child: Column(
             children: [
-              // Windows 自定义标题栏（播放页使用纯黑背景）
+              // Windows 自定义标题栏（播放页跟随主题）
               if (Platform.isWindows)
-                const WindowsTitleBar(
-                  customBackgroundColor: Color(0xFF000000),
+                WindowsTitleBar(
+                  customBackgroundColor: isDarkMode
+                      ? const Color(0xFF121212)
+                      : const Color(0xFFf5f5f5),
                 ),
               // 主要内容
               Expanded(
