@@ -114,16 +114,18 @@ class VideoMenuBottomSheet extends StatefulWidget {
     List<SearchResult>? originalResults,
     Function(SearchResult)? onSourceSelected,
   }) {
+    final transitionController = AnimationController(
+      duration: const Duration(milliseconds: 200), // 缩短动画时间到200ms
+      vsync: Navigator.of(context),
+    );
+
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       enableDrag: false,
       backgroundColor: Colors.transparent,
       barrierColor: Colors.black.withValues(alpha: 0.5), // 添加半透明的遮罩层
-      transitionAnimationController: AnimationController(
-        duration: const Duration(milliseconds: 200), // 缩短动画时间到200ms
-        vsync: Navigator.of(context),
-      ),
+      transitionAnimationController: transitionController,
       builder: (context) => VideoMenuBottomSheet(
         videoInfo: videoInfo,
         isFavorited: isFavorited,
@@ -133,7 +135,23 @@ class VideoMenuBottomSheet extends StatefulWidget {
         originalResults: originalResults,
         onSourceSelected: onSourceSelected,
       ),
-    );
+    ).whenComplete(() {
+      // showModalBottomSheet 返回的 Future 在弹窗“开始关闭”（pop 触发）时就完成，
+      // 而此时退出动画仍在用这个 controller 播放（约 200ms）。若在这里立即 dispose，
+      // 会打断关闭动画并让遮罩层（AnimatedModalBarrier）失效，表现为“菜单无法关闭且可穿透蒙层”。
+      // 因此等退出动画真正结束（dismissed）后再释放，避免内存泄漏的同时不破坏关闭流程。
+      if (transitionController.status == AnimationStatus.dismissed) {
+        transitionController.dispose();
+      } else {
+        void releaseWhenDismissed(AnimationStatus status) {
+          if (status == AnimationStatus.dismissed) {
+            transitionController.removeStatusListener(releaseWhenDismissed);
+            transitionController.dispose();
+          }
+        }
+        transitionController.addStatusListener(releaseWhenDismissed);
+      }
+    });
   }
 
   @override
@@ -212,6 +230,7 @@ class _VideoMenuBottomSheetState extends State<VideoMenuBottomSheet>
 
   @override
   void dispose() {
+    _scrollController.removeListener(_onScroll);
     _scrollController.dispose();
     _floatAnimationController.dispose();
     _transitionAnimationController.dispose();
@@ -219,6 +238,8 @@ class _VideoMenuBottomSheetState extends State<VideoMenuBottomSheet>
   }
 
   void _onScroll() {
+    if (!mounted) return;
+
     if (_showScrollIndicator && _scrollController.hasClients && _scrollController.offset > 10) {
       setState(() {
         _showScrollIndicator = false;
@@ -249,6 +270,8 @@ class _VideoMenuBottomSheetState extends State<VideoMenuBottomSheet>
   }
 
   void _calculateContentBasedMaxHeight() {
+    if (!mounted) return;
+
     try {
       // 计算包含豆瓣详情的完整内容高度
       final renderBox = _fullContentKey.currentContext?.findRenderObject() as RenderBox?;
@@ -275,6 +298,8 @@ class _VideoMenuBottomSheetState extends State<VideoMenuBottomSheet>
 
   /// 处理在顶部向下拖拽触发的收起
   void _handleCollapseFromScroll() {
+    if (!mounted) return;
+
     if (_initialSheetHeight != null) {
       // iOS 上进入二段式收起阶段
       if (_isIOS) {
@@ -291,6 +316,7 @@ class _VideoMenuBottomSheetState extends State<VideoMenuBottomSheet>
 
   /// 执行平滑过渡动画
   void _animateToHeight(double targetHeight) {
+    if (!mounted) return;
     if (_currentSheetHeight == null || _initialSheetHeight == null) return;
 
     final startHeight = _currentSheetHeight!;
@@ -321,6 +347,8 @@ class _VideoMenuBottomSheetState extends State<VideoMenuBottomSheet>
 
   /// 更新拖拽高度 - 用于更高效的拖拽处理
   void _updateDragHeight(double newHeight, double effectiveMaxHeight, bool isDraggingDown) {
+    if (!mounted) return;
+
     // 限制高度在有效范围内
     final clampedHeight = newHeight.clamp(_initialSheetHeight!, effectiveMaxHeight);
 
@@ -353,6 +381,7 @@ class _VideoMenuBottomSheetState extends State<VideoMenuBottomSheet>
 
   /// 加载豆瓣详情
   Future<void> _loadDoubanDetails(String doubanId) async {
+    if (!mounted) return;
     if (_isLoadingDoubanDetails) return;
     
     setState(() {
@@ -364,6 +393,7 @@ class _VideoMenuBottomSheetState extends State<VideoMenuBottomSheet>
         context,
         doubanId: doubanId,
       );
+      if (!mounted) return;
 
       if (response.success && response.data != null) {
         setState(() {
@@ -375,12 +405,14 @@ class _VideoMenuBottomSheetState extends State<VideoMenuBottomSheet>
         
         // 豆瓣详情加载完成后，重新计算基于内容的最大高度
         WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (!mounted) return;
           _calculateContentBasedMaxHeight();
         });
       }
     } catch (e) {
       // 静默处理错误
     } finally {
+      if (!mounted) return;
       setState(() {
         _isLoadingDoubanDetails = false;
       });
@@ -389,6 +421,7 @@ class _VideoMenuBottomSheetState extends State<VideoMenuBottomSheet>
 
   /// 加载 Bangumi 详情
   Future<void> _loadBangumiDetails(String bangumiId) async {
+    if (!mounted) return;
     if (_isLoadingBangumiDetails) return;
     
     setState(() {
@@ -400,6 +433,7 @@ class _VideoMenuBottomSheetState extends State<VideoMenuBottomSheet>
         context,
         bangumiId: bangumiId,
       );
+      if (!mounted) return;
 
       if (response.success && response.data != null) {
         setState(() {
@@ -411,12 +445,14 @@ class _VideoMenuBottomSheetState extends State<VideoMenuBottomSheet>
         
         // Bangumi 详情加载完成后，重新计算基于内容的最大高度
         WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (!mounted) return;
           _calculateContentBasedMaxHeight();
         });
       }
     } catch (e) {
       // 静默处理错误
     } finally {
+      if (!mounted) return;
       setState(() {
         _isLoadingBangumiDetails = false;
       });

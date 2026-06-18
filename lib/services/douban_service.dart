@@ -333,7 +333,6 @@ class DoubanService {
       );
     }
   }
-
   /// 初始化缓存服务
   static Future<void> _initCache() async {
     if (!_cacheInitialized) {
@@ -752,13 +751,18 @@ class DoubanService {
             releaseDate: map['releaseDate']?.toString(),
             originalTitle: map['originalTitle']?.toString(),
             imdbId: map['imdbId']?.toString(),
+            totalEpisodes: map['totalEpisodes'] is int
+                ? map['totalEpisodes'] as int
+                : int.tryParse(map['totalEpisodes']?.toString() ?? ''),
             recommends: recommends,
           );
         },
       );
 
-      if (cachedData != null) {
+      if (cachedData != null && cachedData.title.trim().isNotEmpty) {
         return ApiResponse.success(cachedData);
+      } else if (cachedData != null) {
+        await _cacheService.delete(cacheKey);
       }
     } catch (e) {
       // 缓存读取失败，继续执行网络请求
@@ -768,18 +772,19 @@ class DoubanService {
     // 获取用户存储的豆瓣数据源选项
     final dataSourceKey = await UserDataService.getDoubanDataSourceKey();
     
-    // 根据数据源选项构建不同的基础URL
+    // 根据数据源选项构建不同的详情 API URL。HTML 页面会被豆瓣反爬跳到
+    // sec.douban.com 校验页；rexxar JSON 接口和推荐列表同源，能稳定取详情。
     String apiUrl;
     switch (dataSourceKey) {
       case 'cdn_tencent':
-        apiUrl = 'https://movie.douban.cmliussss.net/subject/$doubanId';
+        apiUrl = 'https://m.douban.cmliussss.net/rexxar/api/v2/subject/$doubanId';
         break;
       case 'cdn_aliyun':
-        apiUrl = 'https://movie.douban.cmliussss.com/subject/$doubanId';
+        apiUrl = 'https://m.douban.cmliussss.com/rexxar/api/v2/subject/$doubanId';
         break;
       case 'direct':
       default:
-        apiUrl = 'https://movie.douban.com/subject/$doubanId';
+        apiUrl = 'https://m.douban.com/rexxar/api/v2/subject/$doubanId';
         break;
     }
     
@@ -806,10 +811,18 @@ class DoubanService {
 
       if (response.statusCode == 200) {
         try {
-          // 解析HTML响应
-          final details = _parseDoubanHtmlDetails(response.body, doubanId);
+          // 解析 rexxar JSON 响应
+          final data = jsonDecode(response.body);
+          if (data is! Map<String, dynamic>) {
+            return ApiResponse.error('豆瓣详情数据格式错误');
+          }
+
+          final details = DoubanMovieDetails.fromJson(data);
+          if (details.title.trim().isEmpty) {
+            return ApiResponse.error('豆瓣详情数据解析为空');
+          }
           
-          // 缓存成功的结果，缓存时间为24小时
+          // 缓存成功的结果，缓存时间为3天
           try {
             await _cacheService.set(
               cacheKey,

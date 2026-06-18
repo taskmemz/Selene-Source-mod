@@ -180,6 +180,7 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget>
     if (_currentUrl != null) {
       await _openCurrentMedia();
     }
+    if (!mounted || _playerDisposed) return;
     setState(() {
       _isInitialized = true;
     });
@@ -201,7 +202,9 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget>
         ),
         play: true,
       );
+      if (!mounted || _playerDisposed || _player == null) return;
       await _player!.setRate(_playbackSpeed.value);
+      if (!mounted || _playerDisposed) return;
       setState(() {
         _hasCompleted = false;
         // _isLoadingVideo = false;

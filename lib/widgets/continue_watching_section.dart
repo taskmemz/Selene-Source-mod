@@ -185,7 +185,7 @@ class _ContinueWatchingSectionState extends State<ContinueWatchingSection>
         if (mounted) {
           _preloadImages(cachedRecords);
         }
-      } else {
+      } else if (mounted) {
         setState(() {
           _hasError = true;
           _isLoading = false;
@@ -212,6 +212,7 @@ class _ContinueWatchingSectionState extends State<ContinueWatchingSection>
 
       final record = records[i];
       final imageUrl = await getImageUrl(record.cover, record.source);
+      if (!mounted) break;
       if (imageUrl.isNotEmpty) {
         final headers = getImageRequestHeaders(imageUrl, record.source);
         final provider = NetworkImage(imageUrl, headers: headers);
@@ -342,6 +343,7 @@ class _ContinueWatchingSectionState extends State<ContinueWatchingSection>
   Future<void> _clearPlayRecords() async {
     try {
       final response = await PageCacheService().clearPlayRecord(context);
+      if (!mounted) return;
 
       if (response.success) {
         setState(() {
@@ -835,6 +837,7 @@ class _ContinueWatchingSectionState extends State<ContinueWatchingSection>
     try {
       if (mounted) {
         final cachedRecordsResult = await _cacheService.getPlayRecordsDirect(context);
+        if (!mounted) return;
         if (cachedRecordsResult.success && cachedRecordsResult.data != null) {
           final cachedRecords = cachedRecordsResult.data!;
           setState(() {
