@@ -1,0 +1,185 @@
+name: Flutter 全平台客户端构建 (Android独立+Linux独立+全平台)
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: '版本号 (留空则从 pubspec.yaml 读取)'
+        required: false
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 安装 Linux 构建依赖
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Run flutter pub get
+        run: flutter pub get
+
+      - name: 构建 Linux
+        run: flutter build linux --release
+
+      - name: 打包 Linux
+        run: |
+          cd build/linux/x64/release/bundles
+          tar czf selene-linux.tar.gz selene
+
+      - name: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-build
+          path: build/linux/x64/release/bundles/selene-linux.tar.gz
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Run flutter pub get
+        run: flutter pub get
+
+      - name: 构建 Windows
+        run: flutter build windows --release
+
+      - name: 打包 Windows
+        run: |
+          Compress-Archive -Path build/windows/x64/runner/Release/* -DestinationPath selene-windows.zip
+
+      - name: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-build
+          path: selene-windows.zip
+
+  build-apple:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Run flutter pub get
+        run: flutter pub get
+
+      - name: 构建 iOS
+        run: flutter build ios --release --no-codesign
+
+      - name: 构建 macOS
+        run: flutter build macos --release
+
+      - name: 打包 iOS & macOS
+        run: |
+          # iOS
+          cd build/ios/iphoneos
+          mkdir -p Payload
+          cp -r Runner.app Payload/
+          zip -r ../../ios-build.ipa Payload/
+          cd ../..
+
+          # macOS
+          cd build/macos/Build/Products/Release
+          zip -r ../../../macos-build.zip selene.app
+          cd ../../../..
+
+      - name: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4
+        with:
+          name: apple-build
+          path: |
+            build/ios-build.ipa
+            build/macos/Build/Products/Release/macos-build.zip
+
+  build-android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: 同意 Android 许可证
+        run: yes | sdkmanager --licenses || true
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Run flutter pub get
+        run: flutter pub get
+
+      - name: 构建 Android 分架构APK
+        run: |
+          flutter build apk --release \
+            --split-per-abi \
+            --target-platform android-arm64,android-arm
+
+      - name: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-build
+          path: build/app/outputs/flutter-apk/*.apk
+
+  upload-to-release:
+    needs: [build-linux, build-windows, build-apple, build-android]
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 下载 Android APK
+        uses: actions/download-artifact@v4
+        with:
+          name: android-build
+          path: artifacts/android
+
+      - name: 下载 Linux
+        uses: actions/download-artifact@v4
+        with:
+          name: linux-build
+          path: artifacts/linux
+
+      - name: 下载 Windows
+        uses: actions/download-artifact@v4
+        with:
+          name: windows-build
+          path: artifacts/windows
+
+      - name: 下载 iOS+macOS
+        uses: actions/download-artifact@v4
+        with:
+          name: apple-build
+          path: artifacts/apple
+
+      - name: 上传全平台到 GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            artifacts/android/*.apk
+            artifacts/linux/*.tar.gz
+            artifacts/windows/*.zip
+            artifacts/apple/*.ipa
+            artifacts/apple/*.zip
