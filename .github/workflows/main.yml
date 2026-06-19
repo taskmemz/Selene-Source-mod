@@ -1,14 +1,14 @@
-name: Flutter 全平台客户端构建 (Android独立+Linux独立+全平台)
+name: Selene 全平台构建与发布
 
 on:
   workflow_dispatch:
-    inputs:
-      version:
-        description: '版本号 (留空则从 pubspec.yaml 读取)'
-        required: false
+
+permissions:
+  contents: write
 
 jobs:
   build-linux:
+    name: Linux 构建
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -18,168 +18,161 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
 
-      - name: Setup Flutter
+      - name: 配置 Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: stable
 
-      - name: Run flutter pub get
+      - name: 获取依赖
         run: flutter pub get
 
       - name: 构建 Linux
         run: flutter build linux --release
 
-      - name: 打包 Linux
+      - name: 打包
         run: |
           cd build/linux/x64/release/bundles
           tar czf selene-linux.tar.gz selene
 
-      - name: actions/upload-artifact@v4
+      - name: 上传构建产物
         uses: actions/upload-artifact@v4
         with:
-          name: linux-build
+          name: selene-linux
           path: build/linux/x64/release/bundles/selene-linux.tar.gz
 
   build-windows:
+    name: Windows 构建
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Flutter
+      - name: 配置 Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: stable
 
-      - name: Run flutter pub get
+      - name: 获取依赖
         run: flutter pub get
 
       - name: 构建 Windows
         run: flutter build windows --release
 
-      - name: 打包 Windows
+      - name: 打包
         run: |
           Compress-Archive -Path build/windows/x64/runner/Release/* -DestinationPath selene-windows.zip
 
-      - name: actions/upload-artifact@v4
+      - name: 上传构建产物
         uses: actions/upload-artifact@v4
         with:
-          name: windows-build
+          name: selene-windows
           path: selene-windows.zip
 
   build-apple:
+    name: Apple 构建 (iOS & macOS)
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Flutter
+      - name: 配置 Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: stable
 
-      - name: Run flutter pub get
+      - name: 获取依赖
         run: flutter pub get
 
       - name: 构建 iOS
         run: flutter build ios --release --no-codesign
 
-      - name: 构建 macOS
-        run: flutter build macos --release
-
-      - name: 打包 iOS & macOS
+      - name: 打包 iOS IPA
         run: |
-          # iOS
           cd build/ios/iphoneos
           mkdir -p Payload
           cp -r Runner.app Payload/
-          zip -r ../../ios-build.ipa Payload/
-          cd ../..
+          zip -r ../../../selene-ios.ipa Payload/
 
-          # macOS
-          cd build/macos/Build/Products/Release
-          zip -r ../../../macos-build.zip selene.app
-          cd ../../../..
+      - name: 构建 macOS
+        run: flutter build macos --release
 
-      - name: actions/upload-artifact@v4
+      - name: 打包 macOS DMG
+        run: |
+          hdiutil create -volname "Selene" \
+            -srcfolder build/macos/Build/Products/Release/selene.app \
+            -ov -format UDZO \
+            selene-macos.dmg
+
+      - name: 上传构建产物
         uses: actions/upload-artifact@v4
         with:
-          name: apple-build
+          name: selene-apple
           path: |
-            build/ios-build.ipa
-            build/macos/Build/Products/Release/macos-build.zip
+            selene-ios.ipa
+            selene-macos.dmg
 
   build-android:
+    name: Android 构建
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Java 17
+      - name: 配置 Java 17
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
+          distribution: temurin
           java-version: '17'
 
-      - name: 同意 Android 许可证
+      - name: 同意 Android SDK 许可证
         run: yes | sdkmanager --licenses || true
 
-      - name: Setup Flutter
+      - name: 配置 Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: stable
 
-      - name: Run flutter pub get
+      - name: 获取依赖
         run: flutter pub get
 
-      - name: 构建 Android 分架构APK
+      - name: 构建 Android 分架构 APK
         run: |
           flutter build apk --release \
             --split-per-abi \
+            --obfuscate \
+            --split-debug-info=build/app/outputs/symbols \
             --target-platform android-arm64,android-arm
 
-      - name: actions/upload-artifact@v4
+      - name: 上传构建产物
         uses: actions/upload-artifact@v4
         with:
-          name: android-build
+          name: selene-android
           path: build/app/outputs/flutter-apk/*.apk
 
-  upload-to-release:
+  release:
+    name: 发布到 GitHub Release
     needs: [build-linux, build-windows, build-apple, build-android]
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/')
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v4
 
-      - name: 下载 Android APK
+      - name: 下载全部构建产物
         uses: actions/download-artifact@v4
         with:
-          name: android-build
-          path: artifacts/android
+          path: artifacts
 
-      - name: 下载 Linux
-        uses: actions/download-artifact@v4
-        with:
-          name: linux-build
-          path: artifacts/linux
+      - name: 读取版本号
+        id: version
+        run: |
+          VERSION=$(grep '^version:' pubspec.yaml | sed 's/version: *//' | cut -d'+' -f1)
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
-      - name: 下载 Windows
-        uses: actions/download-artifact@v4
-        with:
-          name: windows-build
-          path: artifacts/windows
-
-      - name: 下载 iOS+macOS
-        uses: actions/download-artifact@v4
-        with:
-          name: apple-build
-          path: artifacts/apple
-
-      - name: 上传全平台到 GitHub Release
+      - name: 创建 Release 并上传产物
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: v${{ steps.version.outputs.version }}
+          name: Selene v${{ steps.version.outputs.version }}
+          generate_release_notes: true
           files: |
-            artifacts/android/*.apk
-            artifacts/linux/*.tar.gz
-            artifacts/windows/*.zip
-            artifacts/apple/*.ipa
-            artifacts/apple/*.zip
+            artifacts/selene-android/*.apk
+            artifacts/selene-linux/*.tar.gz
+            artifacts/selene-windows/*.zip
+            artifacts/selene-apple/*.ipa
+            artifacts/selene-apple/*.dmg
