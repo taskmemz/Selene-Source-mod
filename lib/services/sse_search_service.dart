@@ -221,11 +221,13 @@ class SSESearchService {
       // 创建 HTTP 客户端并开始 SSE 连接
       _client = http.Client();
       final request = http.Request('GET', sseUri);
-      request.headers.addAll({
+      final headers = <String, String>{
         'Accept': 'text/event-stream',
         'Cache-Control': 'no-cache',
         'Cookie': cookies,
-      });
+      };
+      await ApiService.addBrowserHeaders(headers);
+      request.headers.addAll(headers);
 
       _subscription = _client!.send(request).asStream().listen(
         _handleSSEResponse,

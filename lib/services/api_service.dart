@@ -74,7 +74,7 @@ class ApiService {
   }
 
   /// 添加浏览器特征头
-  static Future<void> _addBrowserHeaders(Map<String, String> headers) async {
+  static Future<void> addBrowserHeaders(Map<String, String> headers) async {
     final ua = await UserDataService.getCustomUserAgent();
     headers['User-Agent'] = ua;
 
@@ -108,7 +108,7 @@ class ApiService {
     };
 
     // 添加浏览器特征头
-    await _addBrowserHeaders(headers);
+    await addBrowserHeaders(headers);
 
     // 添加认证cookies
     if (includeAuth) {
@@ -367,10 +367,7 @@ class ApiService {
 
       final response = await http.get(
         Uri.parse('$baseUrl/api/favorites'),
-        headers: {
-          'Accept': 'application/json',
-          'Cookie': cookies,
-        },
+        headers: await _buildHeaders(),
       ).timeout(_timeout);
 
       if (response.statusCode == 200) {
@@ -573,7 +570,7 @@ class ApiService {
 
       final response = await http.get(
         Uri.parse('$baseUrl/api/health'),
-        headers: {'Accept': 'application/json'},
+        headers: await _buildHeaders(includeAuth: false),
       ).timeout(const Duration(seconds: 5));
 
       return response.statusCode == 200;
@@ -604,7 +601,7 @@ class ApiService {
       final loginHeaders = <String, String>{
         'Content-Type': 'application/json',
       };
-      await _addBrowserHeaders(loginHeaders);
+      await addBrowserHeaders(loginHeaders);
 
       // 发送登录请求
       final response = await http
